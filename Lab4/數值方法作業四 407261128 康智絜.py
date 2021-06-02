@@ -3,6 +3,7 @@ import math
 import matplotlib.pyplot as plt
 
 n = 45 	# 數據的數量
+
 X = np.array([ 
 		0.02000,0.08000,0.34000,0.45000,0.58000,0.70000,0.82000,1.07000,1.38000,1.68000,
 		1.80000,1.93000,2.23000,2.50000,2.71000,2.86000,3.14000,3.40000,3.62000,3.88000,
@@ -59,26 +60,26 @@ def error(m):
 def drawGraph(minPm):
 	line_x = np.linspace(0.0, 10.0, 100)		# x從 0 ~ 10 間隔 0.1
 	line_y = [ Pm(minPm, x) for x in line_x ]	# 將x代入Pm
-	plt.title(f'The Best Choice is P{minPm}(x)', fontsize = 20)		# 標題
+	plt.title(f'The Best Choice is P{minPm}(x)', fontsize = 20)	# 標題
 	plt.axis([0,10,0,5])						# 設定x, y座標的範圍( X:0~10 ; Y:0~5 )
-	plt.xlabel('X', fontsize=16)				# X軸標題
+	plt.xlabel('X', fontsize=16)			# X軸標題
 	plt.ylabel('Y', fontsize=16, rotation=0)	# Y軸標題 並將標題方向轉正
-	plt.scatter(X, Y, color='green')			# 印出原先的數據(綠色的圓點)
+	plt.scatter(X, Y, color='green')		# 印出原先的數據(綠色的圓點)
 	plt.plot(line_x, line_y, color='red')		# 畫線
-	plt.show()									# 顯示繪製的圖形
+	plt.show()					# 顯示繪製的圖形
 
 def main():
 
-	num = 15 					# 找出 15次到(n-1)次的所有多項式
+	num = 15 			# 找出 15次到(n-1)次的所有多項式
 	minError = error(num)		# 最小的誤差
-	minPm = num 				# 最小的誤差的minPm次多項式
+	minPm = num 			# 最小的誤差的minPm次多項式
 	for m in range(num+1, n):	# 找15 ~ 44次多項式中最小誤差的多項式
 		e = error(m)
 		if e < minError:
 			minError = e
 			minPm = m
 
-	print( "The Best Choice is P%d(x)" %minPm )				# 印出第幾次多項式是最好的
+	print( "The Best Choice is P%d(x)" %minPm )		# 印出第幾次多項式是最好的
 	print( "P%d(x)'s" %minPm, "error is", error(minPm) )	# 印出誤差最小的多項式的誤差
 	drawGraph(minPm)			# 畫圖
 
