@@ -72,7 +72,8 @@ def main():
 	num = 15 					# 找出 15次到(n-1)次的所有多項式
 	minError = error(num)		# 最小的誤差
 	minPm = num 				# 最小的誤差的minPm次多項式
-	for m in range(num+1, n):	# 找15 ~ 44次多項式中最小誤差的多項式
+	for m in range(num, n):	# 找15 ~ 44次多項式中最小誤差的多項式
+		print( "\nP%d(x)'s coefficient：\n" %m, get_coefficient(m) )
 		e = error(m)
 		if e < minError:
 			minError = e
