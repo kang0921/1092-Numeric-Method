@@ -7,7 +7,7 @@ n = len(X)
 
 def init():
 	
-	# hi is the length of the i-th interval
+	# h[i] is the length of the i-th interval
 	h = np.zeros(n)	# set initial values of h
 	for i in range(n-1):
 		h[i+1] = X[i+1] - X[i]	# h1, h2,..., h(n-1)
