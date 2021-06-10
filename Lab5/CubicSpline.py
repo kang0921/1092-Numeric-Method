@@ -1,9 +1,10 @@
 import numpy as np
 import math
 
+# data
 X = np.array([0.2, 0.48, 1.32, 2.69, 3.57])
 Y = np.array([3.7, 4.52, 5.28, 4.73, 5.86])
-n = len(X)
+n = len(X)	# number of X
 
 def init():
 	
@@ -45,6 +46,7 @@ def CubicSpline(i, h, S):
 	for i in range(2, n):
 		s[i] = S[i-2]	# set s2 to sn-1
 
+	# P3^i(X) = ai(X-Xi) + bi(X-Xi) + ci(X-Xi) + di
 	a = (s[i+1] - s[i])/(6*h[2])
 	b = s[i]/2
 	c = (Y[i]-Y[i-1])/h[i] - ((2*s[i]+s[i+1])*h[i])/6
