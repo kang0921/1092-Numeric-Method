@@ -1,0 +1,65 @@
+import numpy as np
+import math
+
+X = np.array([0.2, 0.48, 1.32, 2.69, 3.57])
+Y = np.array([3.7, 4.52, 5.28, 4.73, 5.86])
+n = len(X)
+
+def init():
+	# set initial values
+	h = np.zeros(n)
+	# h1, h2,..., h(n-1)
+	for i in range(n-1):
+		h[i+1] = X[i+1] - X[i]
+
+
+	A = [[0]*(n-2) for i in range(n-2)]		# initial A as 0
+	
+	# set the value of the first row of A
+	A[0][0] = 2*(h[1]+h[2])	
+	A[0][1] = h[2]
+
+	# set the value of the row 2 to row n-3 of A
+	for i in range(1, n-3):
+		A[i][i-1] = h[i+1]
+		A[i][i] = 2 * ( h[i+1] + h[i+2] )
+		A[i][i+1] = h[i+2]
+
+	# set the value of the last row of A
+	A[n-3][n-4] = h[n-2]
+	A[n-3][n-3] = 2 * ( h[n-2] + h[n-1] )
+
+	B = [[0] for i in range(n-2)]	# initial B as 0
+
+	# set the value of B
+	for i in range(n-2):		
+		B[i] = 6 * ( ((Y[i+2] - Y[i+1])/h[i+2]) - ((Y[i+1] - Y[i])/h[i+1]) )
+
+	# S is the solution of Ax = B
+	S = np.linalg.solve(A, B)
+	return h, S
+
+def CubicSpline(i, h, S):
+	
+	s = np.zeros(n+1)	# initial s0, s1, s2,..., sn as 0
+	s[0] = s[1] = s[n] = 0	# set s1 = sn = 0
+	for i in range(2, n):
+		s[i] = S[i-2]	# set s2 to sn-1
+
+	a = (s[i+1] - s[i])/(6*h[2])
+	b = s[i]/2
+	c = (Y[i]-Y[i-1])/h[i] - ((2*s[i]+s[i+1])*h[i])/6
+	d = Y[i-1]
+	print("a =", a)
+	print("b =", b)
+	print("c =", c)
+	print("d =", d)
+
+def main():
+	h, S = init()
+	i = 2
+	CubicSpline(i, h, S)
+	
+
+if __name__ == '__main__':
+	main()
