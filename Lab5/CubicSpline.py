@@ -6,12 +6,11 @@ Y = np.array([3.7, 4.52, 5.28, 4.73, 5.86])
 n = len(X)
 
 def init():
-	# set initial values
-	h = np.zeros(n)
-	# h1, h2,..., h(n-1)
+	
+	# hi is the length of the i-th interval
+	h = np.zeros(n)	# set initial values of h
 	for i in range(n-1):
-		h[i+1] = X[i+1] - X[i]
-
+		h[i+1] = X[i+1] - X[i]	# h1, h2,..., h(n-1)
 
 	A = [[0]*(n-2) for i in range(n-2)]		# initial A as 0
 	
@@ -50,6 +49,7 @@ def CubicSpline(i, h, S):
 	b = s[i]/2
 	c = (Y[i]-Y[i-1])/h[i] - ((2*s[i]+s[i+1])*h[i])/6
 	d = Y[i-1]
+
 	print("a =", a)
 	print("b =", b)
 	print("c =", c)
@@ -59,7 +59,6 @@ def main():
 	h, S = init()
 	i = 2
 	CubicSpline(i, h, S)
-	
 
 if __name__ == '__main__':
 	main()
