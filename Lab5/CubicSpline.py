@@ -42,25 +42,22 @@ def init():
 def CubicSpline(i, h, S):
 	
 	s = np.zeros(n+1)	# initial s0, s1, s2,..., sn as 0
-	s[0] = s[1] = s[n] = 0	# set s1 = sn = 0
-	for i in range(2, n):
-		s[i] = S[i-2]	# set s2 to sn-1
+	for j in range(2, n):
+		s[j] = S[j-2]	# set s2 to sn-1
 
-	# P3^i(X) = ai(X-Xi) + bi(X-Xi) + ci(X-Xi) + di
-	a = (s[i+1] - s[i])/(6*h[2])
+	# P3^i(X) = ai(X-Xi)^3 + bi(X-Xi)^2 + ci(X-Xi) + di
+	a = (s[i+1] - s[i])/(6*h[i])
 	b = s[i]/2
 	c = (Y[i]-Y[i-1])/h[i] - ((2*s[i]+s[i+1])*h[i])/6
 	d = Y[i-1]
 
-	print("a =", a)
-	print("b =", b)
-	print("c =", c)
-	print("d =", d)
+	print("P3^%d(X) = %f(X-%.2f)^3 + %f(X-%.2f)^2 + %f(X-%.2f) + %f" %(i, a, X[i-1], b, X[i-1], c, X[i-1], d))
+
 
 def main():
 	h, S = init()
-	i = 2
-	CubicSpline(i, h, S)
+	for i in range(1, n):
+		CubicSpline(i, h, S)
 
 if __name__ == '__main__':
 	main()
