@@ -1,10 +1,21 @@
 import numpy as np
 import math
 
-# data
-X = np.array([0.2, 0.48, 1.32, 2.69, 3.57])
-Y = np.array([3.7, 4.52, 5.28, 4.73, 5.86])
-n = len(X)	# number of X
+def getDataset():
+
+	fp = open('input.txt', 'r')	# open file
+	lines = fp.readlines()
+	global n 	
+	global X
+	global Y
+	n = len(lines)	# number of data
+	X = []			# input node X
+	Y = []			# input node Y
+	for line in lines:
+		tmp = line.split()	# use space as separator
+		X.append(float(tmp[0]))	# get x
+		Y.append(float(tmp[1]))	# get y
+	fp.close()	# close file
 
 def init():
 	
@@ -51,10 +62,10 @@ def CubicSpline(i, h, S):
 	c = (Y[i]-Y[i-1])/h[i] - ((2*s[i]+s[i+1])*h[i])/6
 	d = Y[i-1]
 
-	print("P3^%d(X) = %f(X-%.2f)^3 + %f(X-%.2f)^2 + %f(X-%.2f) + %f" %(i, a, X[i-1], b, X[i-1], c, X[i-1], d))
-
+	print("P3^%d(X) = %f(X-%.2f)^3 + %f(X-%.2f)^2 + %f(X-%.2f) + %.4f" %(i, a, X[i-1], b, X[i-1], c, X[i-1], d))
 
 def main():
+	getDataset()
 	h, S = init()
 	for i in range(1, n):
 		CubicSpline(i, h, S)
